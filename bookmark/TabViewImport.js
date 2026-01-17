@@ -74,13 +74,14 @@ export class TabViewImport
   {
     const version = this.#fileReader.getVersion();
     const formatter = {
-      "1": new BookmarkFormatterV1(),
-      "2": await this.#newBookmarkFormatterV2(),
-      "3": await this.#newBookmarkFormatterV3(),
+      "1": async () => new BookmarkFormatterV1(),
+      "2": async () => await this.#newBookmarkFormatterV2(),
+      "3": async () => await this.#newBookmarkFormatterV3(),
     };
     if (version in formatter)
     {
-      return formatter[version].read(this.#fileReader.getBookmarks());
+      const selectedFormatter = await formatter[version]()
+      return selectedFormatter.read(this.#fileReader.getBookmarks());
     }
     else
     {
