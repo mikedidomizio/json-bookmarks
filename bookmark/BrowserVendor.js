@@ -5,12 +5,12 @@ var BROWSER_VENDOR = "undefined";
 
 if (typeof chrome !== "undefined")
 {
-  if (typeof browser !== "undefined")
+  if (window.chrome)
   {
-    BROWSER_VENDOR = BROWSER_FIREFOX;
+    BROWSER_VENDOR = BROWSER_CHROME;
   }
   else
   {
-    BROWSER_VENDOR = BROWSER_CHROME;
+    BROWSER_VENDOR = BROWSER_FIREFOX;
   }
 }
